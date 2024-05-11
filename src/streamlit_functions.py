@@ -3,7 +3,6 @@ import pandas as pd
 import streamlit as st
 from ydata_profiling import ProfileReport
 
-
 # @st.cache
 def data_preview(file_path: str):
     st.write('**Data Name:**', file_path.split('\\')[-1])
@@ -41,6 +40,7 @@ def data_metadata(file_path: str):
 # @st.cache
 def data_profiling(file_path: str, report_path: str):
     report_files = ['ProfilingReport.html']
+    os.makedirs(report_path, exist_ok=True)
     report_files_exist = all(os.path.isfile(os.path.join(report_path, file)) for file in report_files)
     if not report_files_exist:
         df_data = pd.read_csv(file_path)
@@ -49,3 +49,5 @@ def data_profiling(file_path: str, report_path: str):
 
     # return profile.to_widgets()
     # return profile.profile.to_notebook_iframe()
+
+
