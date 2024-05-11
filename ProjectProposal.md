@@ -2,7 +2,7 @@
 
 ## Proje Detayları 
 **Proje Yürütücüleri:** Metin Uslu (235B7014) & Anıl Özcan (235B7022)  
-**Proje Amacı:** Web Madenciliği dersi kapsamında işlenen Sınıflandırma, Kümeleme ve Regresyon algoritmalarının aşağıda paylaşılan etiketli bir veri seti üzerinde uygulanması ve son kullanıcıya arayüz vasıtası ile sunulması. Projede ilk olarak etiketli veri seti ile Sınıflandırma problemine çözümlere aranacaktır. Ardından veri seti içerisindeki Hedef değişkenimizi kaldırıp Kümeleme problemi olarak ele alacağız. Kümeleme sonuçları ile veri seti içerisindeki hedef değişkeni değerlerinin tespit edilebilmesi. Son olarak da Hedef değişkenin etiketlerinin (A, B, C, ve D) nümerik değerler ile ifade edilerek problemin Regresyon algoritmasıyla çözülmesi amaçlanmaktadır.
+**Proje Amacı:** Web Madenciliği dersi kapsamında işlenen Sınıflandırma, Kümeleme ve Regresyon algoritmalarının aşağıda detayları paylaşılan etiketli bir veri seti üzerinde uygulanması ve son kullanıcıya arayüz vasıtası ile sunulması. Projede ilk olarak etiketli veri seti ile Sınıflandırma problemine çözümlere aranacaktır. Ardından veri seti içerisindeki Hedef değişkenimizi kaldırıp Kümeleme problemi olarak ele alacağız. Kümeleme sonuçları ile veri seti içerisindeki hedef değişkeni değerlerinin tespit edilebilmesi. Son olarak da Hedef değişkenin etiketlerinin (A, B, C, ve D) nümerik değerler ile ifade edilerek problemin Regresyon algoritmasıyla çözülmesi amaçlanmaktadır.
 
 ## Proje Adımları / Timeline:
 1. Keşifçi Veri Analizi
