@@ -1,18 +1,30 @@
 # Web Mining Capstone Project
 Capstone Project for BLM 5121 Web Mining (WM)
 
-Please read `Project Proposal.md`
+## Prerequisites & Notes:
+**`Note 1:`** Please `cfg/.env.example` to `.env` and modify the required values.  
+**`Note 1:`** Please read `ProjectProposal.md`
 
 ## Install
-### Create Environments
-### Install Libraries
 
-## Running
+### Requirements
+    Python 3.11.7+ (Conda or Pipenv/Venv for environment and dependency management)
+
+### Create Environments
+    - python -m venv 
+    - conda create env --name "wb_env" python=3.12
+        - conda activate wb_env
+
+### Installation
+    pip install -r requirements.txt
+
+## Usage
 
 ### Directly
-streamlit run app.py
+    - streamlit run app.py
 
 ### with Docker
-docker build
+    - docker build -t web_mining_project .
 
-## Contact
+## Contacts
+    - Anıl Özcan & Metin Uslu
