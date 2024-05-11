@@ -11,6 +11,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 from dotenv import load_dotenv
 
+from src.functions import download_dataset_from_kaggle
 from src.streamlit_functions import data_metadata, data_preview, data_profiling
 
 # from st_pages import show_pages_from_config
@@ -48,7 +49,6 @@ def data():
     with tab2:
         st.title('Data Preview')
         st.header("Data Preview")
-        # @st.cache_data
         data_preview(file_path=DATA_FILE)
     with tab3:
         st.title('Raw Data Profiling')
@@ -56,7 +56,7 @@ def data():
         with open(file="data/profiling/ProfilingReport.html", encoding="utf8") as p:
             components.html(p.read(), height=4096, width=2160, scrolling=True)
     with tab4:
-        st.title('Data Profiling')
+        st.title('Preprocess Data Profiling')
         st.header("Preprocess Data Profiling")
         with open(file="data/profiling/ProfilingReport.html", encoding="utf8") as p:
             components.html(p.read(), height=4096, width=2160, scrolling=True)
@@ -215,5 +215,6 @@ if __name__ == "__main__":
                     }
                     )
     
+    download_dataset_from_kaggle(user_name="kukuroo3", dataset_name="body-performance-data", path=RAW_DATA_PATH)
     data_profiling(file_path=DATA_FILE, report_path=PROFILLING_PATH)
     menu(user_name=USER_NAME, user_password=USER_PASSWORD)
