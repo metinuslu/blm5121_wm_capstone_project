@@ -16,4 +16,5 @@ plotly
 yellowbrick
 python-dotenv
 ydata-profiling
+kaggle
 #pip install st-pages
