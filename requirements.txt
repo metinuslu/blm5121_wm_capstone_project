@@ -14,4 +14,6 @@ matplotlib
 seaborn
 plotly
 yellowbrick
+python-dotenv
+ydata-profiling
 #pip install st-pages
