@@ -38,16 +38,26 @@ def data_metadata(file_path: str):
 
 
 # @st.cache
-def data_profiling(file_path: str, report_path: str):
+def data_profiling(file_path: str, report_path: str, minimal: bool = True):
     report_files = ['ProfilingReport.html']
     os.makedirs(report_path, exist_ok=True)
     report_files_exist = all(os.path.isfile(os.path.join(report_path, file)) for file in report_files)
     if not report_files_exist:
         df_data = pd.read_csv(file_path)
-        profile = ProfileReport(df=df_data, title="Profiling Report", minimal=True)
+        profile = ProfileReport(df=df_data, title="Profiling Report", minimal=minimal)
         profile.to_file(os.path.join(report_path, "ProfilingReport.html"))
 
     # return profile.to_widgets()
     # return profile.profile.to_notebook_iframe()
 
 
+def data_profilingA(file_path: str, report_path: str, report_file_name: str, minimal: bool = True):
+    print("Report File Name:", report_file_name)
+    report_files = []
+    report_files.append(report_file_name + ".html")
+    os.makedirs(report_path, exist_ok=True)
+    report_files_exist = all(os.path.isfile(os.path.join(report_path, file)) for file in report_files)
+    if not report_files_exist:
+        df_data = pd.read_csv(file_path)
+        profile = ProfileReport(df=df_data, title="Profiling Report", minimal=minimal)
+        profile.to_file(os.path.join(report_path, report_file_name + ".html"))
