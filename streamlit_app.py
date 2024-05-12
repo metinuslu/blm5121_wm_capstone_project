@@ -289,8 +289,8 @@ if __name__ == "__main__":
     load_dotenv(dotenv_path=ENV_FILE, encoding='utf-8', verbose=False)
 
     # Streamlit Secrets
-    USER_NAME = os.environ.get("USER_NAME") if os.environ.get("USER_NAME") is not None else st.secrets["streamlit"]["USER_NAME"]
-    USER_PASSWORD = os.environ.get("USER_PASSWORD") if os.environ.get("USER_PASSWORD") is not None else st.secrets["streamlit"]["USER_PASSWORD"]
+    USER_NAME = os.environ.get("STREAMLIT_USER_NAME") if os.environ.get("STREAMLIT_USER_NAME") is not None else st.secrets["streamlit"]["STREAMLIT_USER_NAME"]
+    USER_PASSWORD = os.environ.get("STREAMLIT_USER_PASSWORD") if os.environ.get("STREAMLIT_USER_PASSWORD") is not None else st.secrets["streamlit"]["STREAMLIT_USER_PASSWORD"]
     # print(USER_NAME, USER_PASSWORD)
     
     # Kaggle Secrets
