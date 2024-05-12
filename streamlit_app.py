@@ -113,12 +113,12 @@ def classification():
             st.header("Decision Tree Training Component")
             st.write('Decision Tree işlemi yapılacak.')
             dt_train(df_test=None, target_column=None, model_name=None, model_params=None)
-            
+
         with tab1_2:
             st.header("Decision Tree Model Charts")
             st.write('Decision Tree işlemi yapılacak.')
             dt_model_chart(model_name=None, model_params=None, df_test=None, target_column=None)
-            
+
         with tab1_3:
             st.header("Decision Tree Pre")
             st.write('Decision Tree işlemi yapılacak.')
@@ -174,6 +174,7 @@ def classification():
             st.header("CatBoost Prediction Component")
             st.write('CatBoost işlemi yapılacak.')
 
+
 def regression():
     """Regression Page"""
 
@@ -211,7 +212,7 @@ def clustering():
     # st.write('1. Veri seti yükleme')
 
 
-def credits():
+def app_credits():
     """App Info. & Credits Page"""
 
     st.title('App Info. & Credits Title')
@@ -247,7 +248,7 @@ def menu(user_name=None, user_password=None):
         'Multi Class Classification Algorithms': classification,
         'Regression Algorithms': regression,
         'Clustering Algorithms': clustering,
-        'App. Info. & Credits': credits
+        'App. Info. & Credits': app_credits
     }
 
     if st.session_state.get('login_success'):
@@ -275,7 +276,8 @@ if __name__ == "__main__":
     # Set Constants
     ROOT_PATH = os.getcwd()
     CFG_PATH = os.path.join(ROOT_PATH, 'cfg')
-    ENV = os.path.join(CFG_PATH, '.env')
+    # ENV_PATH = os.path.join(ROOT_PATH, '.env')
+    ENV_FILE = os.path.join(CFG_PATH, '.env')
     DATA_PATH = os.path.join(ROOT_PATH, 'data')
     RAW_DATA_PATH = os.path.join(DATA_PATH, 'raw')
     PREPROCESSED_DATA_PATH = os.path.join(DATA_PATH, 'preprocessed')
@@ -284,11 +286,17 @@ if __name__ == "__main__":
     DATA_FILE = os.path.join(RAW_DATA_PATH, 'bodyPerformance.csv')
 
     # Load Environment Variables
-    load_dotenv(dotenv_path=ENV, encoding='utf-8', verbose=False)
+    load_dotenv(dotenv_path=ENV_FILE, encoding='utf-8', verbose=False)
 
-    # Get Constants
-    USER_NAME = os.environ.get("USER_NAME")
-    USER_PASSWORD = os.environ.get("USER_PASSWORD")
+    # Streamlit Secrets
+    USER_NAME = os.environ.get("USER_NAME") if os.environ.get("USER_NAME") is not None else st.secrets["streamlit"]["USER_NAME"]
+    USER_PASSWORD = os.environ.get("USER_PASSWORD") if os.environ.get("USER_PASSWORD") is not None else st.secrets["streamlit"]["USER_PASSWORD"]
+    # print(USER_NAME, USER_PASSWORD)
+    
+    # Kaggle Secrets
+    KAGGLE_USER_NAME = os.environ.get("KAGGLE_USER_NAME") if os.environ.get("KAGGLE_USER_NAME") is not None else st.secrets["kaggle"]["KAGGLE_USER_NAME"]
+    KAGGLE_KEY = os.environ.get("KAGGLE_KEY") if os.environ.get("KAGGLE_KEY") is not None else st.secrets["kaggle"]["KAGGLE_KEY"]
+    # print(KAGGLE_USER_NAME, KAGGLE_KEY)    
 
     st.set_page_config(
         page_title="Web Mining Project UI ",
@@ -304,9 +312,14 @@ if __name__ == "__main__":
                     }
                     )
 
-    download_dataset_from_kaggle(user_name="kukuroo3", dataset_name="body-performance-data", path=RAW_DATA_PATH)
+    # Download Dataset from Kaggle
+    # download_dataset_from_kaggle(user_name="kukuroo3", dataset_name="body-performance-data", path=RAW_DATA_PATH)
+    download_dataset_from_kaggle(kaggle_user_name=KAGGLE_USER_NAME, kaggle_key=KAGGLE_KEY, dataset_user_name="kukuroo3", dataset_name="body-performance-data", path=RAW_DATA_PATH)
+    
+    # Data Profiling
     # data_profiling(file_path=DATA_FILE, report_path=PROFILLING_PATH, minimal=False)
     data_profilingA(file_path=DATA_FILE, report_path=PROFILLING_PATH, minimal=False, report_file_name="RawDataProfilingReport")
     data_profilingA(file_path=DATA_FILE, report_path=PROFILLING_PATH, minimal=False, report_file_name="PreprocessDataProfilingReport")
+    
+    # Streamlit Menu
     menu(user_name=USER_NAME, user_password=USER_PASSWORD)
-
