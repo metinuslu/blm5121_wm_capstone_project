@@ -1,10 +1,11 @@
 import os
-# import threading
-# import time
 import warnings
 
+# import threading
+# import time
 # from datetime import datetime
 # import pandas as pd
+
 # import src.model as model
 # import src.preprocess as preprocess
 import streamlit as st
@@ -15,24 +16,50 @@ from src.functions import download_dataset_from_kaggle
 from src.streamlit_functions import (data_metadata, data_preview,
                                      data_profiling, data_profilingA)
 
+from src.models.dt_algoritm import dt_train, dt_prediction, dt_model_chart, dt_model_evaluation, dt_save_model
+
 # from st_pages import show_pages_from_config
 
 warnings.filterwarnings("ignore")
 
 
 def home():
-    st.title('Web Mining Project Title')
+    """Home Page of Streamlit UI"""
+
+    st.title('Web Mining Project Title', anchor='top', help='Web Mining Project Help')
     st.header('Web Mining Project Header')
     st.subheader('Bu uygulama Web Mining (BLM-5121) Projesi kapsamında ML Algoritmaları için geliştirilmiştir.')
     st.markdown('**1. Project Proposal:** Proje önerisi ve proje hakkında bilgi alabilirsiniz.')
-    st.markdown('**2. Data Info:** Veri seti önizlemesi yapabilirsiniz. Veri seti hakkında bilgi alabilirsiniz.')
-    st.markdown('**3. Multi Class Classification:** Çoklu sınıflandırma uygulamasıdır. Veri seti üzerinde çoklu sınıflandırma yapabilirsiniz.')
-    st.markdown('**4. Regression:** Regresyon uygulamasıdır. Veri seti üzerinde regresyon analizi yapabilirsiniz.')
-    st.markdown('**5. Clustering:** Kümeleme uygulamasıdır. Veri seti üzerinde kümeleme analizi yapabilirsiniz.')
-    st.markdown('**6. App Info. & Credits:** Bu projede kullanılan Framework ve Libraryleri içermektedir.')
+    st.markdown('**2. Project System Design:** Proje aşamaları ve sistem tasarımı hakkında bilgi alabilirsiniz.')
+    st.markdown('**3. Dataset Info:** Veri seti önizlemesi yapabilirsiniz. Veri seti hakkında bilgi alabilirsiniz.')
+    st.markdown('**4. Multi Class Classification:** Çoklu sınıflandırma uygulamasıdır. Veri seti üzerinde çoklu sınıflandırma yapabilirsiniz.')
+    st.markdown('**5. Regression:** Regresyon uygulamasıdır. Veri seti üzerinde regresyon analizi yapabilirsiniz.')
+    st.markdown('**6. Clustering:** Kümeleme uygulamasıdır. Veri seti üzerinde kümeleme analizi yapabilirsiniz.')
+    st.markdown('**7. App Info. & Credits:** Bu projede kullanılan Framework ve Libraryleri içermektedir.')
+
+
+def proposal():
+    """Project Proposal Page"""
+
+    with open(file="ProjectProposal.md", encoding="utf8") as p:
+        st.markdown(p.read())
+
+
+def pipeline():
+    """Project System Design Page"""
+    st.title('Project System Design Title')
+    st.header('Project System Design Header')
+    st.subheader('Proje Sistemi Tasarımı: Proje aşamaları ve sistem tasarımı hakkında bilgi alabilirsiniz.')
+    st.image(image="./pipeline/SystemDesign.jpg", 
+             caption="Project System Design", 
+             width=200, 
+             use_column_width="auto"
+             )
 
 
 def data():
+    """Dataset Information Page"""
+
     st.title('Dataset Information Title')
     st.header('Dataset Information Header')
     st.subheader('Veri seti önizlemesi yapabilirsiniz. Veri seti hakkında bilgi alabilirsiniz.')
@@ -63,15 +90,12 @@ def data():
             components.html(p.read(), height=4096, width=2160, scrolling=True)
 
 
-def proposal():
-    with open(file="ProjectProposal.md", encoding="utf8") as p:
-        st.markdown(p.read())
-
-
 def classification():
+    """Multi Class Classification Page"""
+
     st.title('Multi Class Classification Title')
     st.header('Multi Class Classification Algorithms Header')
-    st.subheader('Çoklu sınıflandırma uygulamasıdır. Veri seti üzerinde çoklu sınıflandırma yapabilirsiniz.') 
+    st.subheader('Çoklu sınıflandırma uygulamasıdır. Veri seti üzerinde çoklu sınıflandırma yapabilirsiniz.')
     # option = st.selectbox("Multi Class Classification Alogritmaları?",
     #                       ("Decision Tree", "KNN", "LightGBM"),
     #                       index=None,
@@ -84,86 +108,88 @@ def classification():
         st.header("Decision Tree")
         st.write('Decision Tree işlemi yapılacak.')
 
-        tab1_1, tab1_2, tab1_3, tab1_4 = st.tabs(["Training", "Chart", "Prediction", "Other"])    
+        tab1_1, tab1_2, tab1_3, tab1_4 = st.tabs(["Training Component Component", "Model Charts", "Prediction Component", "Other"])
         with tab1_1:
-            st.header("Decision Tree Training")
+            st.header("Decision Tree Training Component")
             st.write('Decision Tree işlemi yapılacak.')
+            dt_train(df_test=None, target_column=None, model_name=None, model_params=None)
+            
         with tab1_2:
-            st.header("Decision Tree Chart")
+            st.header("Decision Tree Model Charts")
             st.write('Decision Tree işlemi yapılacak.')
+            dt_model_chart(model_name=None, model_params=None, df_test=None, target_column=None)
+            
         with tab1_3:
             st.header("Decision Tree Pre")
             st.write('Decision Tree işlemi yapılacak.')
+            dt_prediction(df_test=None, model_name=None, model_params=None)
+
         with tab1_4:
             st.header("Decision Tree Other")
-            st.write('Decision Tree işlemi yapılacak.')                                                
+            st.write('Decision Tree işlemi yapılacak.')
+            dt_model_evaluation(model_name=None, model_params=None, df_test=None, target_column=None)
+
     with tab2:
         st.header("K Nearest Neighboor")
         st.write('K Nearest Neighboor işlemi yapılacak.')
 
-        tab2_1, tab2_2, tab2_3, tab2_4 = st.tabs(["Training", "Chart", "Prediction", "Other"])
+        tab2_1, tab2_2, tab2_3 = st.tabs(["Training Component", "Model Charts", "Prediction Component"])
         with tab2_1:
-            st.header("K Nearest Neighboor Training")
+            st.header("K Nearest Neighboor Training Component")
             st.write('K Nearest Neighboor işlemi yapılacak.')
         with tab2_2:
-            st.header("K Nearest Neighboor Chart")
+            st.header("K Nearest Neighboor Model Charts")
             st.write('K Nearest Neighboor işlemi yapılacak.')
         with tab2_3:
             st.header("K Nearest Neighboor Predection")
             st.write('K Nearest Neighboor işlemi yapılacak.')
-        with tab2_4:
-            st.header("K Nearest Neighboor Other")
-            st.write('K Nearest Neighboor işlemi yapılacak.')
+
     with tab3:
         st.header("Light GBM")
         st.write('Light GBM işlemi yapılacak.')
 
-        tab3_1, tab3_2, tab3_3, tab3_4 = st.tabs(["Training", "Chart", "Prediction", "Other"])
+        tab3_1, tab3_2, tab3_3 = st.tabs(["Training Component", "Model Charts", "Prediction Component"])
         with tab3_1:
-            st.header("Light GBM Training")
+            st.header("Light GBM Training Component")
             st.write('Light GBM işlemi yapılacak.')
         with tab3_2:
-            st.header("Light GBM Chart")
+            st.header("Light GBM Model Charts")
             st.write('Light GBM işlemi yapılacak.')
         with tab3_3:
-            st.header("Light GBM Prediction")
-            st.write('Light GBM işlemi yapılacak.')
-        with tab3_4:
-            st.header("Light GBM Other")
+            st.header("Light GBM Prediction Component")
             st.write('Light GBM işlemi yapılacak.')
 
     with tab4:
         st.header("CatBoost")
         st.write('CatBoost işlemi yapılacak.')
-        
-        tab4_1, tab4_2, tab4_3, tab4_4 = st.tabs(["Training", "Chart", "Prediction", "Other"])
+
+        tab4_1, tab4_2, tab4_3 = st.tabs(["Training Component", "Model Charts", "Prediction Component"])
         with tab4_1:
-            st.header("CatBoost Training")
+            st.header("CatBoost Training Component")
             st.write('CatBoost işlemi yapılacak.')
         with tab4_2:
-            st.header("CatBoost Chart")
-            st.write('CatBoost işlemi yapılacak.')  
-        with tab4_3:
-            st.header("CatBoost Prediction")
+            st.header("CatBoost Model Charts")
             st.write('CatBoost işlemi yapılacak.')
-        with tab4_4:
-            st.header("CatBoost Other")
+        with tab4_3:
+            st.header("CatBoost Prediction Component")
             st.write('CatBoost işlemi yapılacak.')
 
 def regression():
+    """Regression Page"""
+
     st.title('Regression Title')
     st.header('Regression Algorithms Header')
     st.subheader('Regresyon uygulamasıdır. Veri seti üzerinde regresyon analizi yapabilirsiniz.')
-    tab1, tab2, tab3 = st.tabs(["Training", "Chart", "Prediction"])
+    tab1, tab2, tab3 = st.tabs(["Training Component", "Model Charts", "Prediction Component"])
 
     with tab1:
-        st.header("Training")
-        st.write('Training işlemi yapılacak.')
+        st.header("Training Component")
+        st.write('Training Component işlemi yapılacak.')
 
     with tab2:
-        st.header("Chart")
-        st.write('Chart işlemi yapılacak.')
-        tab2_1, tab2_2, tab2_3 = st.tabs(["Loss Chart", "Accuracy Chart", "Other Chart"])
+        st.header("Model Charts")
+        st.write('Model Charts işlemi yapılacak.')
+        tab2_1, tab2_2, tab2_3 = st.tabs(["Loss Model Charts", "Accuracy Model Charts", "Other Model Charts"])
         with tab2_1:
             st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
         with tab2_2:
@@ -172,11 +198,13 @@ def regression():
             st.image("https://static.streamlit.io/examples/dog.jpg", width=200)
 
     with tab3:
-        st.header("Prediction")
-        st.write('Prediction işlemi yapılacak.')
+        st.header("Prediction Component")
+        st.write('Prediction Component işlemi yapılacak.')
 
 
 def clustering():
+    """Clustering Page"""
+
     st.title('Clustering Title')
     st.header('Clustering Algorithms Header')
     st.subheader('Kümeleme uygulamasıdır. Veri seti üzerinde kümeleme analizi yapabilirsiniz.')
@@ -184,6 +212,8 @@ def clustering():
 
 
 def credits():
+    """App Info. & Credits Page"""
+
     st.title('App Info. & Credits Title')
     st.header('App Info. & Credits Header')
     st.subheader('App Info. & Credits: Bu projede kullanılan Framework ve Libraryleri içermektedir.')
@@ -212,6 +242,7 @@ def menu(user_name=None, user_password=None):
     menu = {
         'Giriş': home,
         'Project Proposal': proposal,
+        'Project System Design': pipeline,
         'Dataset Info': data,
         'Multi Class Classification Algorithms': classification,
         'Regression Algorithms': regression,
@@ -251,25 +282,22 @@ if __name__ == "__main__":
     PROFILLING_PATH = os.path.join(DATA_PATH, 'profiling')
 
     DATA_FILE = os.path.join(RAW_DATA_PATH, 'bodyPerformance.csv')
-    
+
     # Load Environment Variables
     load_dotenv(dotenv_path=ENV, encoding='utf-8', verbose=False)
-    
+
     # Get Constants
     USER_NAME = os.environ.get("USER_NAME")
     USER_PASSWORD = os.environ.get("USER_PASSWORD")
 
-    # st.set_page_config(page_title=None,
-    #                    page_icon=None,
-    #                    layout="centered",
-    #                    initial_sidebar_state="auto",
-    #                    menu_items=None)
-        
     st.set_page_config(
         page_title="Web Mining Project UI ",
         page_icon=":gem:",
         layout="wide",
+        # layout="centered",        
         initial_sidebar_state="expanded",
+        # initial_sidebar_state="auto",
+        # menu_items=None,
         menu_items={'Get Help': 'https://www.extremelycoolapp.com/help',
                     'Report a bug': "https://www.extremelycoolapp.com/bug",
                     'About': "# This is a header. This is an *extremely* cool app!"
@@ -277,9 +305,8 @@ if __name__ == "__main__":
                     )
 
     download_dataset_from_kaggle(user_name="kukuroo3", dataset_name="body-performance-data", path=RAW_DATA_PATH)
-
     # data_profiling(file_path=DATA_FILE, report_path=PROFILLING_PATH, minimal=False)
     data_profilingA(file_path=DATA_FILE, report_path=PROFILLING_PATH, minimal=False, report_file_name="RawDataProfilingReport")
-    data_profilingA(file_path=DATA_FILE, report_path=PROFILLING_PATH, minimal=False, report_file_name="PreprocessDataProfilingReport") 
-
+    data_profilingA(file_path=DATA_FILE, report_path=PROFILLING_PATH, minimal=False, report_file_name="PreprocessDataProfilingReport")
     menu(user_name=USER_NAME, user_password=USER_PASSWORD)
+
