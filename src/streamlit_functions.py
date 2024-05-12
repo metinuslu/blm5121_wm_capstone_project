@@ -3,6 +3,7 @@ import pandas as pd
 import streamlit as st
 from ydata_profiling import ProfileReport
 
+
 # @st.cache
 def data_preview(file_path: str):
     st.write('**Data Name:**', file_path.split('\\')[-1])
@@ -17,24 +18,30 @@ def data_preview(file_path: str):
 
 def data_metadata(file_path: str):
     df_data = pd.read_csv(file_path)
+    csv = df_data.to_csv(index=False).encode("utf-8")
+
+    col1, col2 = st.columns(spec=2, gap="small")
+    with col1:
+        st.link_button("Kaggle Dataset Page", "https://www.kaggle.com/datasets/kukuroo3/body-performance-data")
+    with col2:
+        # st.link_button("Kaggle Dataset Page", "https://www.kaggle.com/datasets/kukuroo3/body-performance-data")  
+        st.download_button(label="Download data as CSV",
+                        data=csv,
+                        file_name="BodyPerformans.csv",
+                        mime="text/csv")
+
     st.write('**Data Name:**', file_path.split('\\')[-1])
     st.write('**Data Path:**', file_path)
-    csv = df_data.to_csv(index=False).encode("utf-8")
-    st.download_button(
-        label="Download data as CSV",
-        data=csv,
-        file_name="BodyPerformans.csv",
-        mime="text/csv",
-        )        
-    st.write('**Data Shape:**', df_data.shape)
+    st.write('**Data Shape:**', str(df_data.shape))
     # st.write('**Data Columns Count:{} & List:{}**'.format(len(df_data.columns), list(df_data.columns)))
     st.write(f'**Data Columns Count:** {len(df_data.columns)}')
-    st.write(f'**Data Columns:** {list(df_data.columns)}')
+    st.write(f'**Data Columns:** {df_data.columns.to_list()}')
     st.write('**Data Types:**', df_data.dtypes)
-    st.write('**Data Describe:**', df_data.describe().T)
-    st.write('**Data Info:**', df_data.info())
-    st.write('**Data Head:**', df_data.head())
-    st.write('**Data Tail:**', df_data.tail())
+    st.write('**Data Describe Table:**', df_data.describe())
+    # st.write('**Data Info:**', df_data.info(verbose=True))
+    st.write('**Data Head Table:**', df_data.head())
+    st.write('**Data Tail Table :**', df_data.tail())
+    st.write('**Data Sample Table :**', df_data.sample(n=5))
 
 
 # @st.cache
@@ -61,3 +68,4 @@ def data_profilingA(file_path: str, report_path: str, report_file_name: str, min
         df_data = pd.read_csv(file_path)
         profile = ProfileReport(df=df_data, title="Profiling Report", minimal=minimal)
         profile.to_file(os.path.join(report_path, report_file_name + ".html"))
+
