@@ -2,19 +2,22 @@
 # pip show library
 
 # Python Version: 3.12.3
-
 # conda create --name "vm_env" python
 # conda activate vm_env
-# jupyterlab
 
-pandas
-scikit-learn
+
 streamlit
+python-dotenv
+pandas
+ydata-profiling
+scikit-learn
 matplotlib
 seaborn
 plotly
 yellowbrick
-python-dotenv
-ydata-profiling
 kaggle
-#pip install st-pages
+pylint
+
+# jupyterlab
+# streamlit-authenticator
+# st-pages
