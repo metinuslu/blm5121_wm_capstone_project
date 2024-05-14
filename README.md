@@ -27,7 +27,7 @@ Capstone Project for BLM 5121 Web Mining (WM)
     - docker build -t web_mining_project .
 
 ## StreamLit App
-[Web Mining Project](https://web-mining-project.streamlit.app/){:target="_blank"}  
+[Web Mining Project](https://web-mining-project.streamlit.app/)
 
 ## Contacts
     - Anıl Özcan & Metin Uslu
