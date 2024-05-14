@@ -1,13 +1,6 @@
 import os
 import warnings
 
-# import threading
-# import time
-# from datetime import datetime
-# import pandas as pd
-
-# import src.model as model
-# import src.preprocess as preprocess
 import streamlit as st
 import streamlit.components.v1 as components
 from dotenv import load_dotenv
@@ -16,7 +9,10 @@ from src.functions import download_dataset_from_kaggle
 from src.streamlit_functions import (data_metadata, data_preview,
                                      data_profiling, data_profilingA)
 
-from src.models.dt_algoritm import dt_train, dt_prediction, dt_model_chart, dt_model_evaluation, dt_save_model
+# import src.model as model
+# import src.preprocess as preprocess
+from src.models.dt_algoritm import dt_train
+# , dt_prediction, dt_model_chart, dt_model_evaluation, dt_save_model
 
 # from st_pages import show_pages_from_config
 
@@ -27,7 +23,7 @@ def home():
     """Home Page of Streamlit UI"""
 
     st.title('Web Mining Project Title', anchor='top', help='Web Mining Project Help')
-    st.header('Web Mining Project Header')
+    # st.header('Web Mining Project Header')
     st.subheader('Bu uygulama Web Mining (BLM-5121) Projesi kapsamında ML Algoritmaları için geliştirilmiştir.')
     st.markdown('**1. Project Proposal:** Proje önerisi ve proje hakkında bilgi alabilirsiniz.')
     st.markdown('**2. Project System Design:** Proje aşamaları ve sistem tasarımı hakkında bilgi alabilirsiniz.')
@@ -47,11 +43,11 @@ def proposal():
 
 def pipeline():
     """Project System Design Page"""
-    st.title('Project System Design Title')
-    st.header('Project System Design Header')
-    st.subheader('Proje Sistemi Tasarımı: Proje aşamaları ve sistem tasarımı hakkında bilgi alabilirsiniz.')
-    st.image(image="./pipeline/SystemDesign.jpg", 
-             caption="Project System Design", 
+    st.title('Project System Design')
+    # st.header('Project System Design')
+    # st.subheader('Proje Sistemi Tasarımı: Proje aşamaları ve sistem tasarımı hakkında bilgi alabilirsiniz.')
+    st.image(image="./pipeline/SystemDesign.jpg",
+             caption="Project System Design",
              width=200, 
              use_column_width="auto"
              )
@@ -59,10 +55,9 @@ def pipeline():
 
 def data():
     """Dataset Information Page"""
-
-    st.title('Dataset Information Title')
-    st.header('Dataset Information Header')
-    st.subheader('Veri seti önizlemesi yapabilirsiniz. Veri seti hakkında bilgi alabilirsiniz.')
+    st.title('Dataset Exploratory Data Analysis(EDA)')
+    # st.header('Dataset Information Header')
+    # st.subheader('Veri seti önizlemesi yapabilirsiniz. Veri seti hakkında bilgi alabilirsiniz.')
     tab1, tab2, tab3, tab4 = st.tabs(["Meta Data", "Preview", "Profile(Raw Data)", "Profile(Preprocess Data)"])
     with tab1:
         st.image(image="https://storage.googleapis.com/kaggle-datasets-images/1732554/2832282/1be2ae7e0f1bc3983e65c76bfe3a436e/dataset-cover.jpg?t=2021-11-20-09-31-54",
@@ -70,21 +65,21 @@ def data():
                  width=200,
                  use_column_width="auto"
                  )
-        st.title('Meta Data')
+        # st.title('Meta Data')
         st.header("Meta Data")
         data_metadata(file_path=DATA_FILE)
         # st.page_link(page="http://www.google.com", label="Dataset Url: Kaggle", icon="🌎")
     with tab2:
-        st.title('Data Preview')
+        # st.title('Data Preview')
         st.header("Data Preview")
         data_preview(file_path=DATA_FILE)
     with tab3:
-        st.title('Raw Data Profiling')
+        # st.title('Raw Data Profiling')
         st.header("Raw Data Profiling")
         with open(file="data/profiling/RawDataProfilingReport.html", encoding="utf8") as p:
             components.html(p.read(), height=4096, width=2160, scrolling=True)
     with tab4:
-        st.title('Preprocess Data Profiling')
+        # st.title('Preprocess Data Profiling')
         st.header("Preprocess Data Profiling")
         with open(file="data/profiling/PreprocessDataProfilingReport.html", encoding="utf8") as p:
             components.html(p.read(), height=4096, width=2160, scrolling=True)
@@ -93,9 +88,10 @@ def data():
 def classification():
     """Multi Class Classification Page"""
 
-    st.title('Multi Class Classification Title')
-    st.header('Multi Class Classification Algorithms Header')
-    st.subheader('Çoklu sınıflandırma uygulamasıdır. Veri seti üzerinde çoklu sınıflandırma yapabilirsiniz.')
+    st.title('Multi Class Classification')
+    # st.header('Multi Class Classification Algorithms Header')
+    # st.subheader('Çoklu sınıflandırma uygulamasıdır. Veri seti üzerinde çoklu sınıflandırma yapabilirsiniz.')
+
     # option = st.selectbox("Multi Class Classification Alogritmaları?",
     #                       ("Decision Tree", "KNN", "LightGBM"),
     #                       index=None,
@@ -105,29 +101,29 @@ def classification():
 
     tab1, tab2, tab3, tab4 = st.tabs(["Decision Tree (DT)", "K Nearest Neighboor (KNN)", "Light GBM", "CatBoost"])
     with tab1:
-        st.header("Decision Tree")
-        st.write('Decision Tree işlemi yapılacak.')
+        st.header("Decision Tree Algorithm")
+        # st.write('Decision Tree işlemi yapılacak.')
 
-        tab1_1, tab1_2, tab1_3, tab1_4 = st.tabs(["Training Component Component", "Model Charts", "Prediction Component", "Other"])
+        tab1_1, tab1_2, tab1_3, tab1_4 = st.tabs(["Training", "Model Charts", "Prediction", "Other"])
         with tab1_1:
             st.header("Decision Tree Training Component")
-            st.write('Decision Tree işlemi yapılacak.')
-            dt_train(df_test=None, target_column=None, model_name=None, model_params=None)
+            # st.write('Decision Tree işlemi yapılacak.')
+            dt_train(df_data_path=DATA_FILE, target_column="class", model_params="B")
 
         with tab1_2:
             st.header("Decision Tree Model Charts")
             st.write('Decision Tree işlemi yapılacak.')
-            dt_model_chart(model_name=None, model_params=None, df_test=None, target_column=None)
+            # dt_model_chart(model_name=None, model_params=None, df_test=None, target_column=None)
 
         with tab1_3:
             st.header("Decision Tree Pre")
             st.write('Decision Tree işlemi yapılacak.')
-            dt_prediction(df_test=None, model_name=None, model_params=None)
+            # dt_prediction(df_test=None, model_name=None, model_params=None)
 
         with tab1_4:
             st.header("Decision Tree Other")
             st.write('Decision Tree işlemi yapılacak.')
-            dt_model_evaluation(model_name=None, model_params=None, df_test=None, target_column=None)
+            # dt_model_evaluation(model_name=None, model_params=None, df_test=None, target_column=None)
 
     with tab2:
         st.header("K Nearest Neighboor")
@@ -179,8 +175,8 @@ def regression():
     """Regression Page"""
 
     st.title('Regression Title')
-    st.header('Regression Algorithms Header')
-    st.subheader('Regresyon uygulamasıdır. Veri seti üzerinde regresyon analizi yapabilirsiniz.')
+    # st.header('Regression Algorithms Header')
+    # st.subheader('Regresyon uygulamasıdır. Veri seti üzerinde regresyon analizi yapabilirsiniz.')
     tab1, tab2, tab3 = st.tabs(["Training Component", "Model Charts", "Prediction Component"])
 
     with tab1:
@@ -206,19 +202,19 @@ def regression():
 def clustering():
     """Clustering Page"""
 
-    st.title('Clustering Title')
-    st.header('Clustering Algorithms Header')
-    st.subheader('Kümeleme uygulamasıdır. Veri seti üzerinde kümeleme analizi yapabilirsiniz.')
+    st.title('Clustering Algorithms')
+    # st.header('Clustering Algorithms Header')
+    # st.subheader('Kümeleme uygulamasıdır. Veri seti üzerinde kümeleme analizi yapabilirsiniz.')
     # st.write('1. Veri seti yükleme')
 
 
 def app_credits():
     """App Info. & Credits Page"""
 
-    st.title('App Info. & Credits Title')
-    st.header('App Info. & Credits Header')
-    st.subheader('App Info. & Credits: Bu projede kullanılan Framework ve Libraryleri içermektedir.')
-    st.write('App Info. & Credits: Bu projede kullanılan Framework ve Libraryleri içermektedir.')
+    st.title('App Info. & Credits')
+    # st.header('App Info. & Credits Header')
+    # st.subheader('App Info. & Credits: Bu projede kullanılan Framework ve Libraryleri içermektedir.')
+    # st.write('App Info. & Credits: Bu projede kullanılan Framework ve Libraryleri içermektedir.')
 
     st.markdown('**Programming Language:** Python 3.12')
     st.markdown('**Libraries & Frameworks:** Pandas, Scikit-learn, Numpy, Matplotlib, Seaborn, Plotly')
@@ -226,6 +222,7 @@ def app_credits():
     st.markdown('**Dev. Tools:** Docker & Git')
     st.markdown('**Dash Url:** [StreamLit App](https://web-mining-project.streamlit.app/)')
     st.markdown('**Developed by:** Metin Uslu & Anıl Özcan')
+
     # st.page_link(page="http://www.google.com", label="Google", icon="🌎")
     # st.page_link("your_app.py", label="Home", icon="🏠")
     # st.page_link("pages/page_1.py", label="Page 1", icon="1️⃣")
@@ -235,7 +232,7 @@ def app_credits():
 def menu(user_name=None, user_password=None):
     """Streamlit UI Menu
     Params:
-        user_name: str 
+        user_name: str
         user_password: str
     """
 
@@ -244,7 +241,7 @@ def menu(user_name=None, user_password=None):
         'Giriş': home,
         'Project Proposal': proposal,
         'Project System Design': pipeline,
-        'Dataset Info': data,
+        'Dataset EDA': data,
         'Multi Class Classification Algorithms': classification,
         'Regression Algorithms': regression,
         'Clustering Algorithms': clustering,
@@ -309,8 +306,7 @@ if __name__ == "__main__":
         menu_items={'Get Help': 'https://www.extremelycoolapp.com/help',
                     'Report a bug': "https://www.extremelycoolapp.com/bug",
                     'About': "# This is a header. This is an *extremely* cool app!"
-                    }
-                    )
+                    })
 
     # Download Dataset from Kaggle
     # download_dataset_from_kaggle(user_name="kukuroo3", dataset_name="body-performance-data", path=RAW_DATA_PATH)
