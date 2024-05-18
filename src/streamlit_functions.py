@@ -1,7 +1,10 @@
 import os
+
 import pandas as pd
 import streamlit as st
 from ydata_profiling import ProfileReport
+
+from .utils import data_types, missing_values, detect_cardinality
 
 
 # @st.cache
@@ -10,7 +13,7 @@ def data_preview(file_path: str):
     st.write('**Data Path:**', file_path)
     df_data = pd.read_csv(file_path)
     st.checkbox("Use container width", value=True, key="use_container_width")
-    
+
     # Same as st.write(df)
     # return st.dataframe(df_data)
     return st.dataframe(df_data, use_container_width=st.session_state.use_container_width)
@@ -36,12 +39,16 @@ def data_metadata(file_path: str):
     # st.write('**Data Columns Count:{} & List:{}**'.format(len(df_data.columns), list(df_data.columns)))
     st.write(f'**Data Columns Count:** {len(df_data.columns)}')
     st.write(f'**Data Columns:** {df_data.columns.to_list()}')
-    st.write('**Data Types:**', df_data.dtypes)
+    # st.write('**Data Types:**', df_data.dtypes)
+    st.write('**Data Types:**', data_types(df=df_data))
     st.write('**Data Describe Table:**', df_data.describe())
     # st.write('**Data Info:**', df_data.info(verbose=True))
+    st.write('**Data Missing Table:**', missing_values(df=df_data, threshold=0))
+    st.write('**Data Cardinality Table:**', detect_cardinality(df=df_data))
     st.write('**Data Head Table:**', df_data.head())
-    st.write('**Data Tail Table :**', df_data.tail())
-    st.write('**Data Sample Table :**', df_data.sample(n=5))
+    st.write('**Data Tail Table:**', df_data.tail())
+    st.write('**Data Sample Table:**', df_data.sample(n=5))
+    
 
 
 # @st.cache
