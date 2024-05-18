@@ -396,7 +396,7 @@ if __name__ == "__main__":
 
     # Download Dataset from Kaggle
     # download_dataset_from_kaggle(user_name="kukuroo3", dataset_name="body-performance-data", path=RAW_DATA_PATH)
-    download_dataset_from_kaggle(kaggle_user_name=KAGGLE_USER_NAME, kaggle_key=KAGGLE_KEY, dataset_user_name="kukuroo3", dataset_name="body-performance-data", path=RAW_DATA_PATH)
+    # download_dataset_from_kaggle(kaggle_user_name=KAGGLE_USER_NAME, kaggle_key=KAGGLE_KEY, dataset_user_name="kukuroo3", dataset_name="body-performance-data", path=RAW_DATA_PATH)
 
     # df_data = data_load(file_name=DATA_FILE)
     df_preprocess_data, _ = preprocess(pred_mode=False, df=None)
