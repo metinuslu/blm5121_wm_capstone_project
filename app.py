@@ -11,8 +11,7 @@ from src.models import (dt_algoritm, k_means, knn_algoritm, nb_algorithm,
 from src.prediction import get_prediction_records
 from src.preprocess import preprocess
 from src.streamlit_functions import (data_metadata, data_preview, data_profiling, data_profilingA)
-from src.utils import download_dataset_from_kaggle
-
+# from src.utils import download_dataset_from_kaggle
 # from st_pages import show_pages_from_config
 
 warnings.filterwarnings("ignore")
