@@ -359,12 +359,17 @@ if __name__ == "__main__":
     ROOT_PATH = os.getcwd()
     CFG_PATH = os.path.join(ROOT_PATH, 'cfg')
     # ENV_PATH = os.path.join(ROOT_PATH, '.env')
-    ENV_FILE = os.path.join(CFG_PATH, '.env')
     DATA_PATH = os.path.join(ROOT_PATH, 'data')
     RAW_DATA_PATH = os.path.join(DATA_PATH, 'raw')
     PREPROCESSED_DATA_PATH = os.path.join(DATA_PATH, 'preprocessed')
     PROFILLING_PATH = os.path.join(DATA_PATH, 'profiling')
 
+    os.makedirs(CFG_PATH, exist_ok=True)
+    os.makedirs(RAW_DATA_PATH, exist_ok=True)
+    os.makedirs(PREPROCESSED_DATA_PATH, exist_ok=True)
+    os.makedirs(PROFILLING_PATH, exist_ok=True)
+
+    ENV_FILE = os.path.join(CFG_PATH, '.env')
     DATA_FILE = os.path.join(RAW_DATA_PATH, 'bodyPerformance.csv')
     PREPROCESS_DATA_FILE = os.path.join(PREPROCESSED_DATA_PATH, 'preprocessed_data.csv')
 
