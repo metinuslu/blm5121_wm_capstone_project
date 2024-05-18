@@ -377,9 +377,9 @@ if __name__ == "__main__":
     # print(USER_NAME, USER_PASSWORD)
     
     # Kaggle Secrets
-    KAGGLE_USER_NAME = os.environ.get("KAGGLE_USER_NAME") if os.environ.get("KAGGLE_USER_NAME") is not None else st.secrets["kaggle"]["KAGGLE_USER_NAME"]
-    KAGGLE_KEY = os.environ.get("KAGGLE_KEY") if os.environ.get("KAGGLE_KEY") is not None else st.secrets["kaggle"]["KAGGLE_KEY"]
-    # print(KAGGLE_USER_NAME, KAGGLE_KEY)    
+    # KAGGLE_USER_NAME = os.environ.get("KAGGLE_USER_NAME") if os.environ.get("KAGGLE_USER_NAME") is not None else st.secrets["kaggle"]["KAGGLE_USER_NAME"]
+    # KAGGLE_KEY = os.environ.get("KAGGLE_KEY") if os.environ.get("KAGGLE_KEY") is not None else st.secrets["kaggle"]["KAGGLE_KEY"]
+    # print(KAGGLE_USER_NAME, KAGGLE_KEY)
 
     st.set_page_config(
         page_title="Web Mining Project UI ",
@@ -408,4 +408,3 @@ if __name__ == "__main__":
 
     # Streamlit Menu
     get_menu(user_name=USER_NAME, user_password=USER_PASSWORD)
-
