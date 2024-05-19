@@ -189,6 +189,11 @@ def classification():
                      )
 
         with tab3_3:
+            st.header("Classification Report")
+            # st.dataframe(classification_report)
+            st.dataframe(pd.read_csv("charts/nb_classification_report.csv"))
+
+        with tab3_4:
             st.header("Naive Bayes Prediction")
             # st.write("Naive Bayes Prediction Process Will Be Done.")
             prediction_record = get_prediction_records(key_start=22)
@@ -200,10 +205,7 @@ def classification():
                 st.header("Prediction")
                 st.write(pred)
 
-        with tab3_4:
-            st.header("Other")
-            # st.dataframe(classification_report)
-            st.dataframe(pd.read_csv("charts/nb_classification_report.csv"))
+
 
 
 def regression():
