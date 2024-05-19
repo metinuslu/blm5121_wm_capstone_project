@@ -79,12 +79,12 @@ def data():
     with tab3:
         st.header("Raw Data Profiling")
         with open(file="data/profiling/RawDataProfilingReport.html", encoding="utf8") as p:
-            components.html(p.read(), height=4096, width=2160, scrolling=True)
+            components.html(p.read(), height=1080, width=1920, scrolling=True)
 
     with tab4:
         st.header("Preprocess Data Profiling")
         with open(file="data/profiling/PreprocessDataProfilingReport.html", encoding="utf8") as p:
-            components.html(p.read(), height=4096, width=2160, scrolling=True)
+            components.html(p.read(), height=1080, width=1920, scrolling=True)
 
 
 def classification():
