@@ -59,7 +59,7 @@ def pipeline():
 
 def data():
     """Dataset Information Page"""
-    st.title('Dataset Exploratory Data Analysis(EDA)')
+    st.title('Dataset Meta Data & Exploratory Data Analysis(EDA)')
     tab1, tab2, tab3, tab4 = st.tabs(["Meta Data", "Preview", "Profile(Raw Data)", "Profile(Preprocess Data)"])
 
     with tab1:
@@ -79,12 +79,12 @@ def data():
     with tab3:
         st.header("Raw Data Profiling")
         with open(file="data/profiling/RawDataProfilingReport.html", encoding="utf8") as p:
-            components.html(p.read(), height=1080, width=1920, scrolling=True)
+            components.html(p.read(), height=720, width=1280, scrolling=True)
 
     with tab4:
         st.header("Preprocess Data Profiling")
         with open(file="data/profiling/PreprocessDataProfilingReport.html", encoding="utf8") as p:
-            components.html(p.read(), height=1080, width=1920, scrolling=True)
+            components.html(p.read(), height=720, width=1280, scrolling=True)
 
 
 def classification():
