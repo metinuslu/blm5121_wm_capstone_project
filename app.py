@@ -134,7 +134,7 @@ def classification():
         tab2_1, tab2_2, tab2_3, tab2_4 = st.tabs(["Training", "Model Charts", "Classification Report", "Prediction"])
 
         with tab2_1:
-            st.header("K Nearest Neighbor Training Component")
+            st.header("K Nearest Neighbor (KNN) Training Component")
             knn_train_button = st.button("Train KNN Model")
             selected_n_neighbor = st.slider("Set K Value of the K Nearest Neighbours", min_value=2, max_value=7, value=3)
             if knn_train_button:
@@ -143,8 +143,21 @@ def classification():
                 st.session_state["cm"] = cm
                 st.dataframe(classification_report)
 
+        with tab2_2:
+            st.header("K Nearest Neighbor (KNN) Model Charts")
+            # st.pyplot(st.session_state["cm"])
+            st.image(image="./charts/knn_confusion_matrix.png",
+                     caption="Confusion Matrix of Decision Tree Model",
+                     # width=200, use_column_width="auto"
+                     )
+
         with tab2_3:
-            st.header("K Nearest Neighbor Prediction")
+            st.header("K Nearest Neighbor (KNN) Classification Report")
+            # st.dataframe(classification_report)
+            st.dataframe(pd.read_csv("charts/knn_classification_report.csv"))
+
+        with tab2_4:
+            st.header("K Nearest Neighbor (KNN) Prediction")
             prediction_record = get_prediction_records(key_start=11)
             print(prediction_record)
             knn_predict_clicked = st.button("Predict", key=101)
@@ -153,20 +166,6 @@ def classification():
                 pred = knn_algoritm.knn_prediction(prediction_record)
                 st.header("Prediction")
                 st.write(pred)
-
-        with tab2_2:
-            st.header("K Nearest Neighbor Model Charts")
-            # st.pyplot(st.session_state["cm"])
-            st.image(image="./charts/knn_confusion_matrix.png",
-                     caption="Confusion Matrix of Decision Tree Model",
-                     # width=200, use_column_width="auto"
-                     )
-
-        with tab2_4:
-            st.header("K Nearest Neighbor Other")
-            # st.dataframe(classification_report)
-            st.dataframe(pd.read_csv("charts/knn_classification_report.csv"))
-
     with tab3:
         st.header("Naive Bayes (NB)")
         tab3_1, tab3_2, tab3_3, tab3_4 = st.tabs(["Training", "Model Charts", "Classification Report", "Prediction"])
